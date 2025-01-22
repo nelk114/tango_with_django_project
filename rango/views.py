@@ -3,3 +3,6 @@ from django.http import HttpResponse
 
 def index(r):
 	return HttpResponse('Rango says hey there partner!')
+
+def about(r):
+	return HttpResponse('Rango says here is the about page.')
