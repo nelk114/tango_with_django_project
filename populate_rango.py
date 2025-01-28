@@ -10,8 +10,8 @@ def add_page(c,t,l,v=0):
 	p.url=l;p.views=v
 	p.save()
 	return p
-def add_cat(n):
-	c=Category.objects.get_or_create(name=n)[0]
+def add_cat(n,v,l):
+	c=Category.objects.get_or_create(name=n,views=v,likes=l)[0]
 	c.save()
 	return c
 
@@ -30,9 +30,9 @@ def populate():
 		{'title':'Bottle','url':'http://bottlepy.org/docs/dev/'},
 		{'title':'Flask','url':'http://flask.pocoo.org'},
 		]
-	cats={'Python':{'pages':pPyþ},'Django':{'pages':pDja},'Other Frameworks':{'pages':pOþ},}
+	cats={'Python':{'pages':pPyþ,'views':128,'likes':64},'Django':{'pages':pDja,'views':64,'likes':32},'Other Frameworks':{'pages':pOþ,'views':32,'likes':16},}
 	for c,d in cats.items():
-		m=add_cat(c)
+		m=add_cat(c,d['views'],d['likes'])
 		for p in d['pages']:add_page(m,p['title'],p['url'])
 	for c in Category.objects.all():
 		for p in Page.objects.filter(category=c):print(f'- {c}: {p}')
