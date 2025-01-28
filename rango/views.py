@@ -6,4 +6,5 @@ def index(r):
 	return render(r,'rango/index.html',context=context_dict)
 
 def about(r):
-	return render(r,'rango/about.html')
+	ctx={'nm':'Bernhard Nicolás Ersfeld Mandujano'}
+	return render(r,'rango/about.html',context=ctx)
