@@ -6,6 +6,7 @@ def index(r):
 	context_dict={
 		'boldmessage':'Crunchy, creamy, cookie, candy, cupcake!',
 		'categories':Category.objects.order_by('-likes')[:5],
+		'pages':Page.objects.order_by('-views')[:5],
 		}
 	return render(r,'rango/index.html',context=context_dict)
 
