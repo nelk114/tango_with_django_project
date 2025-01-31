@@ -17,23 +17,23 @@ def add_cat(n,v,l):
 
 def populate():
 	pPyþ=[
-		{'title':'Official Python Tutorial','url':'http://docs.python.org/3/tutorial/'},
-		{'title':'How to Think like a Computer Scientist','url':'http://www.greenteapress.com/thinkpython/'},
-		{'title':'Learn Python in 10 Minutes','url':'http://www.korokithakis.net/tutorials/python/'},
+		{'title':'Official Python Tutorial','url':'http://docs.python.org/3/tutorial/','views':5},
+		{'title':'How to Think like a Computer Scientist','url':'http://www.greenteapress.com/thinkpython/','views':8},
+		{'title':'Learn Python in 10 Minutes','url':'http://www.korokithakis.net/tutorials/python/','views':95},
 		]
 	pDja=[
-		{'title':'Official Django Tutorial','url':'https://docs.djangoproject.com/en/2.1/intro/tutorial01/'},
-		{'title':'Django Rocks','url':'http://www.djangorocks.com/'},
-		{'title':'How to Tango with Django','url':'http://www.tangowithdjango.com/'},
+		{'title':'Official Django Tutorial','url':'https://docs.djangoproject.com/en/2.1/intro/tutorial01/','views':3},
+		{'title':'Django Rocks','url':'http://www.djangorocks.com/','views':2},
+		{'title':'How to Tango with Django','url':'http://www.tangowithdjango.com/','views':5},
 		]
 	pOþ=[
-		{'title':'Bottle','url':'http://bottlepy.org/docs/dev/'},
-		{'title':'Flask','url':'http://flask.pocoo.org'},
+		{'title':'Bottle','url':'http://bottlepy.org/docs/dev/','views':1},
+		{'title':'Flask','url':'http://flask.pocoo.org','views':1},
 		]
 	cats={'Python':{'pages':pPyþ,'views':128,'likes':64},'Django':{'pages':pDja,'views':64,'likes':32},'Other Frameworks':{'pages':pOþ,'views':32,'likes':16},}
 	for c,d in cats.items():
 		m=add_cat(c,d['views'],d['likes'])
-		for p in d['pages']:add_page(m,p['title'],p['url'])
+		for p in d['pages']:add_page(m,p['title'],p['url'],p['views'])
 	for c in Category.objects.all():
 		for p in Page.objects.filter(category=c):print(f'- {c}: {p}')
 
