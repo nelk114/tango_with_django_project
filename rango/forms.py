@@ -13,3 +13,7 @@ class PageForm(forms.ModelForm):
 	url=forms.URLField(max_length=200,help_text='Please enter the URL of the page.')
 	views=forms.IntegerField(widget=forms.HiddenInput(),initial=0)
 	class Meta:model=Page;exclude=('category',)
+	def clean(σ):
+		d=σ.cleaned_data;l=d.get('url')
+		if l and not l.startswith('http://'):d['url']=f'http://{l}'
+		return d
