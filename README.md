@@ -1,4 +1,4 @@
 # tango_with_django_project
 Reïmplementation of the ‘Rango’ application from the ‘Tango with Django’ book for university coursework purposes
 
-Current status: Chapter 8 Complete
+Current status: Chapter 9 Complete
