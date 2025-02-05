@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.http import HttpResponse
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from rango.models import Category,Page
 from rango.forms import CategoryForm,PageForm,UserForm,UserProfileForm
@@ -81,3 +81,7 @@ def user_login(r):
 @login_required
 def restricted(r):
 	return HttpResponse('Since you\'re logged in, you can see this text!')
+
+def user_logout(r):
+	logout(r)
+	return redirect(reverse('rango:index'))
