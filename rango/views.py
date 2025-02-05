@@ -82,7 +82,7 @@ def user_login(r):
 
 @login_required
 def restricted(r):
-	return HttpResponse('Since you\'re logged in, you can see this text!')
+	return render(r,'rango/restricted.html')
 
 def user_logout(r):
 	logout(r)
