@@ -27,6 +27,7 @@ def show_category(r,category_name_slug):	#Slug as 2nd param
 		ctx['category']=None;ctx['pages']=None
 	return render(r,'rango/category.html',context=ctx)
 
+@login_required
 def add_category(r):
 	f=CategoryForm()
 	if r.method=='POST':
@@ -35,6 +36,7 @@ def add_category(r):
 		else:print(f.errors)
 	return render(r,'rango/add_category.html',{'form':f})
 
+@login_required
 def add_page(r,category_name_slug):
 	try:cat=Category.objects.get(slug=category_name_slug)
 	except Category.DoesNotExist:cat=None
