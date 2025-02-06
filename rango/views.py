@@ -21,6 +21,7 @@ def index(r):
 		'boldmessage':'Crunchy, creamy, cookie, candy, cupcake!',
 		'categories':Category.objects.order_by('-likes')[:5],
 		'pages':Page.objects.order_by('-views')[:5],
+		'visits':int(r.COOKIES.get('visits','1'))
 		}
 	a=render(r,'rango/index.html',context=context_dict)
 	visitor_cookie_handler(r,a);return a
