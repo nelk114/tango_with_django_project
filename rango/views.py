@@ -22,7 +22,8 @@ def index(r):
 		'categories':Category.objects.order_by('-likes')[:5],
 		'pages':Page.objects.order_by('-views')[:5],
 		}
-	return render(r,'rango/index.html',context=context_dict)
+	a=render(r,'rango/index.html',context=context_dict)
+	visitor_cookie_handler(r,a);return a
 
 def about(r):
 	if r.session.test_cookie_worked():print('TEST COOKIE WORKED!');r.session.delete_test_cookie()
