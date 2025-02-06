@@ -5,6 +5,15 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from rango.models import Category,Page
 from rango.forms import CategoryForm,PageForm,UserForm,UserProfileForm
+from datetime import datetime as DT
+
+def visitor_cookie_handler(r,a):
+	n=int(r.COOKIES.get('visits','1'))
+	c=r.COOKIES.get('last_visit',str(DT.now()))
+	t=DT.strptime(c[:-7],'%Y-%m-%d %H:%M:%S')
+	if (DT.now()-t).days>0:n+=1;a.set_cookie('last_visit',str(DT.now()))
+	else:a.set_cookie('last_visit',c)
+	a.set_cookie('visits',n)
 
 def index(r):
 	r.session.set_test_cookie()
