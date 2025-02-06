@@ -7,6 +7,7 @@ from rango.models import Category,Page
 from rango.forms import CategoryForm,PageForm,UserForm,UserProfileForm
 
 def index(r):
+	r.session.set_test_cookie()
 	context_dict={
 		'boldmessage':'Crunchy, creamy, cookie, candy, cupcake!',
 		'categories':Category.objects.order_by('-likes')[:5],
@@ -15,6 +16,7 @@ def index(r):
 	return render(r,'rango/index.html',context=context_dict)
 
 def about(r):
+	if r.session.test_cookie_worked():print('TEST COOKIE WORKED!');r.session.delete_test_cookie()
 	ctx={'nm':'Bernhard Nicolás Ersfeld Mandujano'}
 	return render(r,'rango/about.html',context=ctx)
 
