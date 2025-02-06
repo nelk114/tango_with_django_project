@@ -7,24 +7,29 @@ from rango.models import Category,Page
 from rango.forms import CategoryForm,PageForm,UserForm,UserProfileForm
 from datetime import datetime as DT
 
-def visitor_cookie_handler(r,a):
-	n=int(r.COOKIES.get('visits','1'))
-	c=r.COOKIES.get('last_visit',str(DT.now()))
+def get_server_side_cookie(r,c,D=None):
+	v=r.session.get(c)
+	if not v:v=D
+	return v
+
+def visitor_cookie_handler(r):
+	n=int(get_server_side_cookie(r,'visits','1'))
+	c=get_server_side_cookie(r,'last_visit',str(DT.now()))
 	t=DT.strptime(c[:-7],'%Y-%m-%d %H:%M:%S')
-	if (DT.now()-t).days>0:n+=1;a.set_cookie('last_visit',str(DT.now()))
-	else:a.set_cookie('last_visit',c)
-	a.set_cookie('visits',n)
+	if (DT.now()-t).days>0:n+=1;r.session['last_visit']=str(DT.now())
+	else:r.session['last_visit']=c
+	r.session['visits']=n
 
 def index(r):
 	r.session.set_test_cookie()
+	visitor_cookie_handler(r)
 	context_dict={
 		'boldmessage':'Crunchy, creamy, cookie, candy, cupcake!',
 		'categories':Category.objects.order_by('-likes')[:5],
 		'pages':Page.objects.order_by('-views')[:5],
-		'visits':int(r.COOKIES.get('visits','1'))
+		'visits':r.session['visits']
 		}
-	a=render(r,'rango/index.html',context=context_dict)
-	visitor_cookie_handler(r,a);return a
+	return render(r,'rango/index.html',context=context_dict)
 
 def about(r):
 	if r.session.test_cookie_worked():print('TEST COOKIE WORKED!');r.session.delete_test_cookie()
