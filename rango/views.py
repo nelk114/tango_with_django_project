@@ -27,13 +27,13 @@ def index(r):
 		'boldmessage':'Crunchy, creamy, cookie, candy, cupcake!',
 		'categories':Category.objects.order_by('-likes')[:5],
 		'pages':Page.objects.order_by('-views')[:5],
-		'visits':r.session['visits']
 		}
 	return render(r,'rango/index.html',context=context_dict)
 
 def about(r):
 	if r.session.test_cookie_worked():print('TEST COOKIE WORKED!');r.session.delete_test_cookie()
-	ctx={'nm':'Bernhard Nicolás Ersfeld Mandujano'}
+	visitor_cookie_handler(r)
+	ctx={'nm':'Bernhard Nicolás Ersfeld Mandujano','visits':r.session['visits']}
 	return render(r,'rango/about.html',context=ctx)
 
 def show_category(r,category_name_slug):	#Slug as 2nd param
